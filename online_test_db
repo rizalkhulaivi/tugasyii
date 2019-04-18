@@ -1,0 +1,145 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.2
+-- Dumped by pg_dump version 11.2
+
+-- Started on 2019-04-15 09:44:06
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 196 (class 1259 OID 16485)
+-- Name: pengguna; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pengguna (
+    id_pengguna integer NOT NULL,
+    username character varying(25) NOT NULL,
+    password character varying(25) NOT NULL,
+    hak_akses character varying(7) NOT NULL
+);
+
+
+ALTER TABLE public.pengguna OWNER TO postgres;
+
+--
+-- TOC entry 197 (class 1259 OID 16493)
+-- Name: produk; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.produk (
+    id_produk integer NOT NULL,
+    nama_produk character varying(50) NOT NULL,
+    jenis_produk character varying(50) NOT NULL,
+    harga_satuan_produk bigint NOT NULL
+);
+
+
+ALTER TABLE public.produk OWNER TO postgres;
+
+--
+-- TOC entry 198 (class 1259 OID 16501)
+-- Name: transaksi; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.transaksi (
+    id_transaksi integer NOT NULL,
+    tanggal_transaksi date NOT NULL,
+    total_transaksi bigint NOT NULL,
+    jumlah_barang integer NOT NULL,
+    id_produk integer NOT NULL
+);
+
+
+ALTER TABLE public.transaksi OWNER TO postgres;
+
+--
+-- TOC entry 2820 (class 0 OID 16485)
+-- Dependencies: 196
+-- Data for Name: pengguna; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pengguna (id_pengguna, username, password, hak_akses) FROM stdin;
+1	khulaivi	112233	admin
+2	puji	puji	admin
+\.
+
+
+--
+-- TOC entry 2821 (class 0 OID 16493)
+-- Dependencies: 197
+-- Data for Name: produk; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.produk (id_produk, nama_produk, jenis_produk, harga_satuan_produk) FROM stdin;
+2	Lemon Teaaa	Minuman	5000
+1	Nasi Pecel	Makanan	10000
+\.
+
+
+--
+-- TOC entry 2822 (class 0 OID 16501)
+-- Dependencies: 198
+-- Data for Name: transaksi; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.transaksi (id_transaksi, tanggal_transaksi, total_transaksi, jumlah_barang, id_produk) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2693 (class 2606 OID 16556)
+-- Name: pengguna pengguna_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pengguna
+    ADD CONSTRAINT pengguna_pkey PRIMARY KEY (id_pengguna);
+
+
+--
+-- TOC entry 2695 (class 2606 OID 16500)
+-- Name: produk produk_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produk
+    ADD CONSTRAINT produk_pkey PRIMARY KEY (id_produk);
+
+
+--
+-- TOC entry 2697 (class 2606 OID 16505)
+-- Name: transaksi transaksi_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transaksi
+    ADD CONSTRAINT transaksi_pkey PRIMARY KEY (id_transaksi);
+
+
+--
+-- TOC entry 2698 (class 2606 OID 16506)
+-- Name: transaksi transaksi_produk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transaksi
+    ADD CONSTRAINT transaksi_produk FOREIGN KEY (id_produk) REFERENCES public.produk(id_produk);
+
+
+-- Completed on 2019-04-15 09:44:06
+
+--
+-- PostgreSQL database dump complete
+--
+
